@@ -10,7 +10,7 @@
 import Foundation
 import Alamofire
 
-enum RemoteRequestResult<T> {
+public enum RemoteRequestResult<T> {
     case Success(T)
     case Error(NSError)
 }
@@ -19,18 +19,18 @@ enum RemoteRequestResult<T> {
 /**
  * Class that handle a request to a RemoteResource in a RemoteService
  */
-class RemoteRequest<T>{
+public class RemoteRequest<T>{
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Types
-    typealias CompleteBlock = (RemoteRequestResult<T>)->Void
+    public typealias CompleteBlock = (RemoteRequestResult<T>)->Void
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
-    var resource:RemoteResource<T>
-    var manager:Manager
-    var params:[String:String]
-    var HTTPMethod:Alamofire.Method = .GET
-    var service:RemoteService
+    public var resource:RemoteResource<T>
+    public var manager:Manager
+    public var params:[String:String]
+    public var HTTPMethod:Alamofire.Method = .GET
+    public var service:RemoteService
 
     
     ////////////////////////////////////////////////////////////////////////////////
@@ -45,28 +45,28 @@ class RemoteRequest<T>{
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: public Methods
     
-    func addParam(key:String,value:String) -> RemoteRequest<T>{
+    public func addParam(key:String,value:String) -> RemoteRequest<T>{
         self.params[key] = value
         return self
     }
     
-    func addParams(values:[String:String]) -> RemoteRequest<T>{
+    public func addParams(values:[String:String]) -> RemoteRequest<T>{
         for(k,v) in values{
             self.params[k] = v
         }
         return self
     }
     
-    func HTTPMethod(method:Alamofire.Method) -> RemoteRequest<T> {
+    public func HTTPMethod(method:Alamofire.Method) -> RemoteRequest<T> {
         self.HTTPMethod = method
         return self
     }
         
-    func fullURLString() -> String{
+    public func fullURLString() -> String{
         return self.fullURL().absoluteString
     }
     
-    func fullURL() -> NSURL{
+    public func fullURL() -> NSURL{
         return self.service.baseURL.URLByAppendingPathComponent(self.resource.path)
     }
 
@@ -75,7 +75,7 @@ class RemoteRequest<T>{
      
      - parameter onComplete: block to be call after handle response
      */
-    func load(onComplete:CompleteBlock){
+    public func load(onComplete:CompleteBlock){
          preconditionFailure("This method must be overridden - HEEEEELPPPPPPPPP I DON'T KNOW WHAT TO DO")
     }
 

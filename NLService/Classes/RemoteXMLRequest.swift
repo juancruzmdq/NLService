@@ -17,7 +17,7 @@ import Alamofire
 /**
  *  RemoteXMLRequest Inherit RemoteRequest
  */
-class RemoteXMLRequest<T>:RemoteRequest<T> {
+public class RemoteXMLRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Private Properties
@@ -30,7 +30,7 @@ class RemoteXMLRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    internal override init(resource:RemoteResource<T>, service:RemoteService, manager:Manager){
+    override public init(resource:RemoteResource<T>, service:RemoteService, manager:Manager){
         super.init(resource: resource, service: service, manager: manager)
     }
 
@@ -39,7 +39,7 @@ class RemoteXMLRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Override Methods
-    override func load(onComplete:CompleteBlock){
+    override public func load(onComplete:CompleteBlock){
         self.manager
             .request(self.HTTPMethod,
                 self.fullURLString(),

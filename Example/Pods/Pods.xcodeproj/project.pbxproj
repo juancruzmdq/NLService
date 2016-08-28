@@ -499,13 +499,13 @@
 		71C59DEBDA9224943D1C808D46FF533B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4CDAA35B8D8C5A9795CCCBE42B6382B6 /* Extensions */,
 				DD664806ADA8C1BCD16D783B3F9F9B85 /* RemoteJSONRequest.swift */,
 				0E6BC408F2BCD24F8FB46C63C55A487B /* RemoteRequest.swift */,
 				3C728C23B735E65AF1B560BF3ADDC21F /* RemoteResource.swift */,
 				86829F89CE9D1A48B0E3ECECD2A96C94 /* RemoteService.swift */,
 				6143ABEA35EB4285F06EF69F41CC907C /* RemoteXMLRequest.swift */,
 				439ACD489E3649ADB4860FCEBAFDEA54 /* Session.swift */,
+				4CDAA35B8D8C5A9795CCCBE42B6382B6 /* Extensions */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

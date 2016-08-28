@@ -16,20 +16,20 @@ import Alamofire
 /**
  * Wraper for a remote HTTP Service
  */
-class RemoteService {
+public class RemoteService {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Private Properties
     private var manager : Manager
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
-    var baseURL : NSURL
-    lazy var session: Session = { return Session.restoreOrCreate(self.sessionStoreKey()) }()
+    public var baseURL : NSURL
+    public lazy var session: Session = { return Session.restoreOrCreate(self.sessionStoreKey()) }()
 
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    internal init(baseURL:NSURL,headers:[String:String]) {
+    public init(baseURL:NSURL,headers:[String:String]) {
         // Create manager with custome header
         self.manager = Alamofire.Manager(configuration: RemoteService.buildHeaders(headers))
         //store base url
@@ -74,13 +74,13 @@ class RemoteService {
     }
     
     /**
-     Restore or create the service Session instance and set an specific auth_token
+     Restore or create the service Session instance 
      
      - parameter token: string with the token value
      
      - returns: Session instance
      */
-    func buildSession() -> Session{
+    public func buildSession() -> Session{
         let session:Session = Session.restoreOrCreate(self.sessionStoreKey())
         session.clean()
         self.session = session
@@ -90,7 +90,7 @@ class RemoteService {
     /**
      Remove current Session instance and creae a new empty session
      */
-    func cleanSession(){
+    public func cleanSession(){
         self.session.delete()
         self.session = self.buildSession()
         self.cleanCookie()
@@ -104,7 +104,7 @@ class RemoteService {
     /**
      Remove cookies from the current manager
      */
-    func cleanCookie(){
+    public func cleanCookie(){
         if let storage = manager.session.configuration.HTTPCookieStorage{
             if let cookies = storage.cookies{
                 for(cookie) in cookies{
@@ -119,7 +119,7 @@ class RemoteService {
      
      - parameter cookie: instance of NSHTTPCookie
      */
-    func setCookie(cookie:NSHTTPCookie){
+    public func setCookie(cookie:NSHTTPCookie){
         manager.session.configuration.HTTPCookieStorage?.setCookie(cookie)
     }
 
@@ -133,7 +133,7 @@ class RemoteService {
      
      - returns: RemoteRequest instance
      */
-    func request<T>(resource:RemoteResource<T>) -> RemoteRequest<T>{
+    public func request<T>(resource:RemoteResource<T>) -> RemoteRequest<T>{
         return (self.request(resource,manager: self.manager))
     }
 

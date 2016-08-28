@@ -16,7 +16,7 @@ import Alamofire
 /**
  *  RemoteJSONRequest Inherit RemoteRequest
  */
-class RemoteJSONRequest<T>:RemoteRequest<T> {
+public class RemoteJSONRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Private Properties
@@ -29,7 +29,7 @@ class RemoteJSONRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    internal override init(resource:RemoteResource<T>, service:RemoteService, manager:Manager){
+    public override init(resource:RemoteResource<T>, service:RemoteService, manager:Manager){
         super.init(resource: resource, service: service, manager: manager)
     }
 
@@ -38,7 +38,7 @@ class RemoteJSONRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Override Methods
-    override func load(onComplete:CompleteBlock){
+    public override func load(onComplete:CompleteBlock){
         self.manager
             .request(self.HTTPMethod,
                 self.fullURLString(),

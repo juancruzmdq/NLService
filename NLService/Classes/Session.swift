@@ -13,10 +13,10 @@ import Foundation
 /**
  * Class that handle and persist the session info
  */
-class Session : NSObject, NSCoding {
+public class Session : NSObject, NSCoding {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
-    var id: String
+    public var id: String
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Private Properties
@@ -39,7 +39,7 @@ class Session : NSObject, NSCoding {
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    internal init(uniqueID:String){
+    public init(uniqueID:String){
         id = uniqueID
         sessionData = [:]
     }
@@ -57,12 +57,12 @@ class Session : NSObject, NSCoding {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: NSCoder implementation
 
-    func encodeWithCoder(aCoder: NSCoder){
+    public func encodeWithCoder(aCoder: NSCoder){
         aCoder.encodeObject(sessionData, forKey: "session_data")
         aCoder.encodeObject(id, forKey: "session_id")
     }
     
-    convenience required init?(coder aDecoder: NSCoder) {
+    convenience required public init?(coder aDecoder: NSCoder) {
         let sessionData = aDecoder.decodeObjectForKey("session_data")
         let id = aDecoder.decodeObjectForKey("session_id")
         
@@ -75,36 +75,21 @@ class Session : NSObject, NSCoding {
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: public Methods
-    func save(){
+    public func save(){
         let encodedObject:NSData = NSKeyedArchiver.archivedDataWithRootObject(self as AnyObject);
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(encodedObject, forKey: self.id)
         userDefaults.synchronize()
     }
     
-    func delete(){
+    public func delete(){
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.removeObjectForKey(self.id)
         userDefaults.synchronize()
     }
     
-    func clean() {
+    public func clean() {
         self.sessionData = [:]
-    }
-
-    
-    /**
-     Check if exist a session for the current service, and if this session have a valid token
-     
-     - returns: Session Autorization status
-     */
-    func isAuthorized() -> Bool{
-        guard let auth_token:String = self["auth_token"] as? String where auth_token != ""  else{
-            return false
-        }
-        
-        return true
-        
     }
     
     

@@ -18,7 +18,7 @@ public enum ResponseType {
     case XML
 }
 
-enum ParseResult<T> {
+public enum ParseResult<T> {
     case Success(T)
     case Error(NSError)
 }
@@ -26,20 +26,20 @@ enum ParseResult<T> {
 /**
  * Class to map an endpoint in a RemoteService
  */
-class RemoteResource<T> {
+public class RemoteResource<T> {
 
-    typealias parseResponseBlock = ( AnyObject ) -> ParseResult<T>
+    public typealias parseResponseBlock = ( AnyObject ) -> ParseResult<T>
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
-    var path:String = ""
-    var parser: parseResponseBlock?
-    var responseType: ResponseType = .JSON
+    public var path:String = ""
+    public var parser: parseResponseBlock?
+    public var responseType: ResponseType = .JSON
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
     
-    internal init(_ path:String){
+    public init(_ path:String){
         self.path = path
     }
     
