@@ -1,0 +1,22 @@
+PODS:
+  - Nimble (3.2.0)
+  - NLService (0.1.0)
+  - Quick (0.9.3)
+
+DEPENDENCIES:
+  - Nimble (~> 3.0)
+  - NLService (from `../`)
+  - Quick (~> 0.8)
+
+EXTERNAL SOURCES:
+  NLService:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
+  NLService: da8dff4fc7018aaa10455500dc08a9bbb763ce7c
+  Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
+
+PODFILE CHECKSUM: 7a129e370f49a0ceb039aa3eae218239f16ada2d
+
+COCOAPODS: 1.0.1

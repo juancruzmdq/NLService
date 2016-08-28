@@ -1,0 +1,6 @@
+framework module NLService {
+  umbrella header "NLService-umbrella.h"
+
+  export *
+  module * { export * }
+}
