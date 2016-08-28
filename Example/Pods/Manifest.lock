@@ -1,6 +1,10 @@
 PODS:
+  - Alamofire (3.4.1)
   - Nimble (3.2.0)
-  - NLService (0.1.0)
+  - NLService (0.1.0):
+    - Alamofire
+    - Ono
+  - Ono (1.2.2)
   - Quick (0.9.3)
 
 DEPENDENCIES:
@@ -13,10 +17,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
-  NLService: da8dff4fc7018aaa10455500dc08a9bbb763ce7c
+  NLService: 849574d10a8d5f397f3afb4d981be902a708b0eb
+  Ono: 80b1c686777d3f6d5d5ce6fcac8a74afef4ca197
   Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
 
-PODFILE CHECKSUM: 7a129e370f49a0ceb039aa3eae218239f16ada2d
+PODFILE CHECKSUM: eca9cbeeb97e2762c55cfb290670ee10219c5596
 
 COCOAPODS: 1.0.1
