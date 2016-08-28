@@ -23,13 +23,13 @@ pod "NLService"
 
 ```ruby
 
-// Buils Main Service
+// Build Main Service
 let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, headers:[:])
 
-//Build resource endpoint
+// Build resource endpoint
 let repoInfo = RemoteResource<String>("/repos/juancruzmdq/NLService")
 
-//Define resource parser
+// Define resource parser
 repoInfo.parser =  = {( result )->ParseResult<String> in
     guard let info = result as? NSDictionary else{
         return .Error(NSError(domain: "ViewController", code: 0, localizedDescription: "Invalid response???"))
@@ -38,7 +38,7 @@ repoInfo.parser =  = {( result )->ParseResult<String> in
 }
 
 
-// User service to create request to resource, and perform call (load) of the remote resource
+// Use service to create request to resource, and perform call (load) of the remote resource
 api.request(repoInfo).load { (result) in
     switch result {
     case .Success(let string):
