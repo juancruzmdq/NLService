@@ -58,7 +58,9 @@ public class RemoteJSONRequest<T>:RemoteRequest<T> {
         self.manager
             .request(self.HTTPMethod,
                 self.fullURLString(),
-                parameters: self.params)
+                parameters: self.params,
+                encoding:  .URL,
+                headers: self.resource.headers)
             .responseJSON { (response) in
                 if let JSON = response.result.value {
                     

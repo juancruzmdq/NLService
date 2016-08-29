@@ -12,7 +12,7 @@ import NLService
 class ViewController: UIViewController {
 
     lazy var api:RemoteService = {
-        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, headers:[:])
+        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!)
         return service
         }()
     

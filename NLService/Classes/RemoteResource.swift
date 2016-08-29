@@ -51,6 +51,7 @@ public class RemoteResource<T> {
     public var path:String = ""
     public var parser: parseResponseBlock?
     public var responseType: ResponseType = .JSON
+    public var headers: [String: String]? = nil
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown

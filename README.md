@@ -24,7 +24,7 @@ pod "NLService"
 ```ruby
 
 // Build Main Service
-let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, headers:[:])
+let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, headers:[:]) // optional global headers
 
 // Build resource endpoint
 let repoInfo = RemoteResource<String>("/repos/juancruzmdq/NLService")

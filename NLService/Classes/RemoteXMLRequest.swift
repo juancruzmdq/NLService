@@ -59,7 +59,9 @@ public class RemoteXMLRequest<T>:RemoteRequest<T> {
         self.manager
             .request(self.HTTPMethod,
                 self.fullURLString(),
-                parameters: self.params)
+                parameters: self.params,
+                encoding:  .URL,
+                headers: self.resource.headers)
             .responseData{ (response) in
                 if let data = response.data {
                     do{

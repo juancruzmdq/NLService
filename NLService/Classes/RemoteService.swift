@@ -45,9 +45,13 @@ public class RemoteService {
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    public init(baseURL:NSURL,headers:[String:String]) {
+    public init(baseURL:NSURL,headers:[String:String]? = nil) {
         // Create manager with custome header
-        self.manager = Alamofire.Manager(configuration: RemoteService.buildHeaders(headers))
+        if headers != nil {
+            self.manager = Alamofire.Manager(configuration: RemoteService.buildHeaders(headers!))
+        }else{
+            self.manager = Alamofire.Manager()
+        }
         //store base url
         self.baseURL = baseURL
     }
