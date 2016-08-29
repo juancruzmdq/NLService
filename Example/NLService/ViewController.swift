@@ -12,12 +12,13 @@ import NLService
 class ViewController: UIViewController {
 
     lazy var api:RemoteService = {
-        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!)
+        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, headers: ["Header-Global":"value global"])
         return service
         }()
     
     lazy var repoInfo:RemoteResource<String> = {
         var res = RemoteResource<String>("/repos/juancruzmdq/NLService")
+        res.headers = ["Header-Repo":"value for repo"]
         res.parser = {( result )->ParseResult<String> in
             guard let info = result as? NSDictionary else{
                 return .Error(NSError(domain: "ViewController", code: 0, localizedDescription: "Invalid response???"))
