@@ -67,7 +67,7 @@ public class RemoteResource<T> {
         if let block:parseResponseBlock = self.parser {
             return block(response);
         }
-        return .Error(NSError(domain: "RemoteResource", code: 0, localizedDescription: "Empty Parser"))
+        return .Success(response as! T)
     }
     
 }

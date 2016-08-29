@@ -23,13 +23,30 @@ pod "NLService"
 
 ```ruby
 
+The simplest example
+
+let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!)
+let resource = RemoteResource<NSDictionary>("/repos/juancruzmdq/NLService")
+service.request(resource).load { (dict) in
+    switch dict {
+    case .Success(let dict):
+        print("API Result: \(dict)")
+        break
+    case .Error(let error):
+        print("API Error: \(error.localizedDescription)")
+        break
+    }
+}
+
+```
+
+```ruby
+
 // Build Main Service
 let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, headers:[:]) // optional global headers
 
-// Build resource endpoint
+// Build resource endpoint with parser
 let repoInfo = RemoteResource<String>("/repos/juancruzmdq/NLService")
-
-// Define resource parser
 repoInfo.parser =  = {( result )->ParseResult<String> in
     guard let info = result as? NSDictionary else{
         return .Error(NSError(domain: "ViewController", code: 0, localizedDescription: "Invalid response???"))

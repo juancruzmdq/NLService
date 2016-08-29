@@ -30,6 +30,22 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!)
+        let resource = RemoteResource<NSDictionary>("/repos/juancruzmdq/NLService")
+        service.request(resource).load { (dict) in
+            switch dict {
+            case .Success(let dict):
+                print("API Result: \(dict)")
+                break
+            case .Error(let error):
+                print("API Error: \(error.localizedDescription)")
+                break
+            }
+        }
+        
+            
         // Do any additional setup after loading the view, typically from a nib.
         api.request(repoInfo).load { (result) in
             switch result {
