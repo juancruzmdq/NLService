@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NLService'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'Network Layer Service.'
 
   s.description      = <<-DESC

@@ -12,7 +12,8 @@ import NLService
 class ViewController: UIViewController {
 
     lazy var api:RemoteService = {
-        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, headers: ["Header-Global":"value global"])
+        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!,
+                                    manager: NLAlamofireManager(headers: ["Header-Global":"value global"]))
         return service
         }()
     
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!)
+        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, manager:NLAlamofireManager())
         let resource = RemoteResource<NSDictionary>("/repos/juancruzmdq/NLService")
         service.request(resource).load { (dict) in
             switch dict {

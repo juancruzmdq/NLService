@@ -24,7 +24,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // MARK: Imports
 import Foundation
-import Alamofire
 
 public enum RemoteRequestResult<T> {
     case Success(T)
@@ -43,15 +42,15 @@ public class RemoteRequest<T>{
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
     public var resource:RemoteResource<T>
-    public var manager:Manager
+    public var manager:NLManagerProtocol
     public var params:[String:String]
-    public var HTTPMethod:Alamofire.Method = .GET
+    public var HTTPMethod:NLMethod = .GET
     public var service:RemoteService
 
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    internal init(resource:RemoteResource<T>, service:RemoteService, manager:Manager){
+    internal init(resource:RemoteResource<T>, service:RemoteService, manager:NLManagerProtocol){
         self.service = service
         self.resource = resource
         self.manager = manager
@@ -73,7 +72,7 @@ public class RemoteRequest<T>{
         return self
     }
     
-    public func HTTPMethod(method:Alamofire.Method) -> RemoteRequest<T> {
+    public func HTTPMethod(method:NLMethod) -> RemoteRequest<T> {
         self.HTTPMethod = method
         return self
     }

@@ -24,7 +24,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // MARK: Imports
 import Foundation
-import Alamofire
 
 ////////////////////////////////////////////////////////////////////////////////
 // MARK: Types
@@ -45,7 +44,7 @@ public class RemoteJSONRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    public override init(resource:RemoteResource<T>, service:RemoteService, manager:Manager){
+    public override init(resource:RemoteResource<T>, service:RemoteService, manager:NLManagerProtocol){
         super.init(resource: resource, service: service, manager: manager)
     }
 
@@ -55,17 +54,13 @@ public class RemoteJSONRequest<T>:RemoteRequest<T> {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Override Methods
     public override func load(onComplete:CompleteBlock){
-        self.manager
-            .request(self.HTTPMethod,
-                self.fullURLString(),
-                parameters: self.params,
-                encoding:  .URL,
-                headers: self.resource.headers)
-            .responseJSON { (response) in
-                if let JSON = response.result.value {
-                    
-                    let result = self.resource.parseResponse(JSON)
-                    switch result {
+        self.manager.request(self.HTTPMethod,
+                             self.fullURLString(),
+                             parameters: self.params,
+                             headers: self.resource.headers) { (data, error) in
+                if data != nil {
+                    let parsingResult = self.resource.parseResponse(self.convertDataToDictionary(data!)!)
+                    switch parsingResult {
                     case .Success(let result):
                         onComplete(.Success(result))
                         break
@@ -74,7 +69,7 @@ public class RemoteJSONRequest<T>:RemoteRequest<T> {
                         break
                     }
                 }else{
-                    self.handleError(response.result.error,onComplete:onComplete)
+                    self.handleError(error,onComplete:onComplete)
                 }
         }
     }
@@ -84,6 +79,13 @@ public class RemoteJSONRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: public Methods
-
+    public func convertDataToDictionary(data: NSData) -> [String:AnyObject]? {
+        do {
+            return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+        } catch let error as NSError {
+            print(error)
+        }
+        return nil
+    }
 
 }

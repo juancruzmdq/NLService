@@ -24,7 +24,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // MARK: Imports
 import Foundation
-import Alamofire
 
 ////////////////////////////////////////////////////////////////////////////////
 // MARK: Types
@@ -35,7 +34,7 @@ import Alamofire
 public class RemoteService {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Private Properties
-    private var manager : Manager
+    private var manager : NLManagerProtocol
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
@@ -45,41 +44,16 @@ public class RemoteService {
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    public init(baseURL:NSURL,headers:[String:String]? = nil) {
-        // Create manager with custome header
-        if headers != nil {
-            self.manager = Alamofire.Manager(configuration: RemoteService.buildHeaders(headers!))
-        }else{
-            self.manager = Alamofire.Manager()
-        }
+    public init(baseURL:NSURL,manager:NLManagerProtocol) {
+        
+        self.manager = manager
         //store base url
         self.baseURL = baseURL
     }
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Class Methods
-    
-    /**
-     Create a NSURLSessionConfiguration with the specified header values
-     
-     - parameter headers: Dictionary[String:String] with key:value heders values
-     
-     - returns: instance of the current NSURLSessionConfiguration
-     */
-    static func buildHeaders(headers:[String:String]) -> NSURLSessionConfiguration{
-        // Concat header with default header
-        var sharedHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        
-        for(k,v) in headers{
-            sharedHeaders[k] = v
-        }
-        
-        configuration.HTTPAdditionalHeaders = sharedHeaders
-        
-        return configuration
-    
-    }
+
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Session handle
@@ -125,13 +99,7 @@ public class RemoteService {
      Remove cookies from the current manager
      */
     public func cleanCookie(){
-        if let storage = manager.session.configuration.HTTPCookieStorage{
-            if let cookies = storage.cookies{
-                for(cookie) in cookies{
-                    storage.deleteCookie(cookie)
-                }
-            }
-        }
+        self.manager.cleanCookie()
     }
     
     /**
@@ -140,7 +108,7 @@ public class RemoteService {
      - parameter cookie: instance of NSHTTPCookie
      */
     public func setCookie(cookie:NSHTTPCookie){
-        manager.session.configuration.HTTPCookieStorage?.setCookie(cookie)
+        self.manager.setCookie(cookie)
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -165,7 +133,7 @@ public class RemoteService {
      
      - returns: RemoteRequest instance
      */
-    private func request<T>(resource:RemoteResource<T>,manager:Manager) -> RemoteRequest<T>{
+    private func request<T>(resource:RemoteResource<T>,manager:NLManagerProtocol) -> RemoteRequest<T>{
         if resource.responseType == .XML {
             return RemoteXMLRequest<T>(resource: resource,service: self,manager: manager)
         }else{

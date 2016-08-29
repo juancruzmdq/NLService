@@ -25,7 +25,6 @@
 // MARK: Imports
 import Foundation
 import Ono
-import Alamofire
 
 ////////////////////////////////////////////////////////////////////////////////
 // MARK: Types
@@ -46,7 +45,7 @@ public class RemoteXMLRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    override public init(resource:RemoteResource<T>, service:RemoteService, manager:Manager){
+    override public init(resource:RemoteResource<T>, service:RemoteService, manager:NLManagerProtocol){
         super.init(resource: resource, service: service, manager: manager)
     }
 
@@ -56,34 +55,34 @@ public class RemoteXMLRequest<T>:RemoteRequest<T> {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Override Methods
     override public func load(onComplete:CompleteBlock){
-        self.manager
-            .request(self.HTTPMethod,
-                self.fullURLString(),
-                parameters: self.params,
-                encoding:  .URL,
-                headers: self.resource.headers)
-            .responseData{ (response) in
-                if let data = response.data {
-                    do{
-                        let XML:ONOXMLDocument = try ONOXMLDocument(data: data)
-                        
-                        let result = self.resource.parseResponse(XML)
-                        
-                        switch result {
-                        case .Success(let result):
-                            onComplete(.Success(result))
-                            break
-                        case .Error(let error):
-                            onComplete(.Error(error))
-                            break
-                        }
-                        
-                    }catch{
-                        onComplete(.Error(NSError(domain: "RemoteService", code: 5002, localizedDescription:"Parsing Response to XML")))
-                    }
-                }else{
-                    self.handleError(response.result.error,onComplete:onComplete)
-                }
+        self.manager.request(self.HTTPMethod,
+                             self.fullURLString(),
+                             parameters: self.params,
+                             headers: self.resource.headers) { (data, error) in
+                                
+                                if data != nil {
+                                    do{
+                                        let XML:ONOXMLDocument = try ONOXMLDocument(data: data)
+                                        
+                                        let parsingResult = self.resource.parseResponse(XML)
+                                        
+                                        switch parsingResult {
+                                        case .Success(let result):
+                                            onComplete(.Success(result))
+                                            break
+                                        case .Error(let error):
+                                            onComplete(.Error(error))
+                                            break
+                                        }
+                                        
+                                    }catch{
+                                        onComplete(.Error(NSError(domain: "RemoteService", code: 5002, localizedDescription:"Parsing Response to XML")))
+                                    }
+                                }else{
+                                    self.handleError(error,onComplete:onComplete)
+                                }
+
+                                
         }
     }
 
