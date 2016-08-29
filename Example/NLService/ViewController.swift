@@ -11,14 +11,14 @@ import NLService
 
 class ViewController: UIViewController {
 
-    lazy var api:RemoteService = {
-        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!,
+    lazy var api:NLRemoteService = {
+        let service = NLRemoteService(baseURL: NSURL(string: "https://api.github.com")!,
                                     manager: NLAlamofireManager(headers: ["Header-Global":"value global"]))
         return service
         }()
     
-    lazy var repoInfo:RemoteResource<String> = {
-        var res = RemoteResource<String>("/repos/juancruzmdq/NLService")
+    lazy var repoInfo:NLRemoteResource<String> = {
+        var res = NLRemoteResource<String>("/repos/juancruzmdq/NLService")
         res.headers = ["Header-Repo":"value for repo"]
         res.parser = {( result )->ParseResult<String> in
             guard let info = result as? NSDictionary else{
@@ -33,8 +33,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, manager:NLAlamofireManager())
-        let resource = RemoteResource<NSDictionary>("/repos/juancruzmdq/NLService")
+        let service = NLRemoteService(baseURL: NSURL(string: "https://api.github.com")!, manager:NLAlamofireManager())
+        let resource = NLRemoteResource<NSDictionary>("/repos/juancruzmdq/NLService")
         service.request(resource).load { (dict) in
             switch dict {
             case .Success(let dict):

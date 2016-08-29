@@ -31,7 +31,7 @@ import Foundation
 /**
  * Wraper for a remote HTTP Service
  */
-public class RemoteService {
+public class NLRemoteService {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Private Properties
     private var manager : NLManagerProtocol
@@ -39,7 +39,7 @@ public class RemoteService {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
     public var baseURL : NSURL
-    public lazy var session: Session = { return Session.restoreOrCreate(self.sessionStoreKey()) }()
+    public lazy var session: NLSession = { return NLSession.restoreOrCreate(self.sessionStoreKey()) }()
 
     
     ////////////////////////////////////////////////////////////////////////////////
@@ -74,8 +74,8 @@ public class RemoteService {
      
      - returns: Session instance
      */
-    public func buildSession() -> Session{
-        let session:Session = Session.restoreOrCreate(self.sessionStoreKey())
+    public func buildSession() -> NLSession{
+        let session:NLSession = NLSession.restoreOrCreate(self.sessionStoreKey())
         session.clean()
         self.session = session
         return self.session
@@ -121,7 +121,7 @@ public class RemoteService {
      
      - returns: RemoteRequest instance
      */
-    public func request<T>(resource:RemoteResource<T>) -> RemoteRequest<T>{
+    public func request<T>(resource:NLRemoteResource<T>) -> NLRemoteRequest<T>{
         return (self.request(resource,manager: self.manager))
     }
 
@@ -133,11 +133,11 @@ public class RemoteService {
      
      - returns: RemoteRequest instance
      */
-    private func request<T>(resource:RemoteResource<T>,manager:NLManagerProtocol) -> RemoteRequest<T>{
+    private func request<T>(resource:NLRemoteResource<T>,manager:NLManagerProtocol) -> NLRemoteRequest<T>{
         if resource.responseType == .XML {
-            return RemoteXMLRequest<T>(resource: resource,service: self,manager: manager)
+            return NLRemoteXMLRequest<T>(resource: resource,service: self,manager: manager)
         }else{
-            return RemoteJSONRequest<T>(resource: resource,service: self,manager: manager)
+            return NLRemoteJSONRequest<T>(resource: resource,service: self,manager: manager)
         }
         // TODO : Implement .Data and .String
 

@@ -42,7 +42,7 @@ public enum ParseResult<T> {
 /**
  * Class to map an endpoint in a RemoteService
  */
-public class RemoteResource<T> {
+public class NLRemoteResource<T> {
 
     public typealias parseResponseBlock = ( AnyObject ) -> ParseResult<T>
 

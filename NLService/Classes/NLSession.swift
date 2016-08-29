@@ -29,7 +29,7 @@ import Foundation
 /**
  * Class that handle and persist the session info
  */
-public class Session : NSObject, NSCoding {
+public class NLSession : NSObject, NSCoding {
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
     public var id: String
@@ -62,12 +62,12 @@ public class Session : NSObject, NSCoding {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Class Methods
-    static func restoreOrCreate(uniqueID:String) -> Session{
+    static func restoreOrCreate(uniqueID:String) -> NLSession{
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if let encodedObject:NSData = userDefaults.objectForKey(uniqueID) as? NSData{
-            return (NSKeyedUnarchiver.unarchiveObjectWithData(encodedObject) as? Session)!
+            return (NSKeyedUnarchiver.unarchiveObjectWithData(encodedObject) as? NLSession)!
         }
-        return Session(uniqueID: uniqueID)
+        return NLSession(uniqueID: uniqueID)
     }
 
     ////////////////////////////////////////////////////////////////////////////////

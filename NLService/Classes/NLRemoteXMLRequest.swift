@@ -32,7 +32,7 @@ import Ono
 /**
  *  RemoteXMLRequest Inherit RemoteRequest
  */
-public class RemoteXMLRequest<T>:RemoteRequest<T> {
+public class NLRemoteXMLRequest<T>:NLRemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Private Properties
@@ -45,7 +45,7 @@ public class RemoteXMLRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    override public init(resource:RemoteResource<T>, service:RemoteService, manager:NLManagerProtocol){
+    override public init(resource:NLRemoteResource<T>, service:NLRemoteService, manager:NLManagerProtocol){
         super.init(resource: resource, service: service, manager: manager)
     }
 

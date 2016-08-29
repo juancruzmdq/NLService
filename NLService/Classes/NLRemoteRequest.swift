@@ -34,23 +34,23 @@ public enum RemoteRequestResult<T> {
 /**
  * Class that handle a request to a RemoteResource in a RemoteService
  */
-public class RemoteRequest<T>{
+public class NLRemoteRequest<T>{
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Types
     public typealias CompleteBlock = (RemoteRequestResult<T>)->Void
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Public Properties
-    public var resource:RemoteResource<T>
+    public var resource:NLRemoteResource<T>
     public var manager:NLManagerProtocol
     public var params:[String:String]
     public var HTTPMethod:NLMethod = .GET
-    public var service:RemoteService
+    public var service:NLRemoteService
 
     
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    internal init(resource:RemoteResource<T>, service:RemoteService, manager:NLManagerProtocol){
+    internal init(resource:NLRemoteResource<T>, service:NLRemoteService, manager:NLManagerProtocol){
         self.service = service
         self.resource = resource
         self.manager = manager
@@ -60,19 +60,19 @@ public class RemoteRequest<T>{
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: public Methods
     
-    public func addParam(key:String,value:String) -> RemoteRequest<T>{
+    public func addParam(key:String,value:String) -> NLRemoteRequest<T>{
         self.params[key] = value
         return self
     }
     
-    public func addParams(values:[String:String]) -> RemoteRequest<T>{
+    public func addParams(values:[String:String]) -> NLRemoteRequest<T>{
         for(k,v) in values{
             self.params[k] = v
         }
         return self
     }
     
-    public func HTTPMethod(method:NLMethod) -> RemoteRequest<T> {
+    public func HTTPMethod(method:NLMethod) -> NLRemoteRequest<T> {
         self.HTTPMethod = method
         return self
     }

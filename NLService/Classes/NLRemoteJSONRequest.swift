@@ -31,7 +31,7 @@ import Foundation
 /**
  *  RemoteJSONRequest Inherit RemoteRequest
  */
-public class RemoteJSONRequest<T>:RemoteRequest<T> {
+public class NLRemoteJSONRequest<T>:NLRemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Private Properties
@@ -44,7 +44,7 @@ public class RemoteJSONRequest<T>:RemoteRequest<T> {
 
     ////////////////////////////////////////////////////////////////////////////////
     // MARK: Setup & Teardown
-    public override init(resource:RemoteResource<T>, service:RemoteService, manager:NLManagerProtocol){
+    public override init(resource:NLRemoteResource<T>, service:NLRemoteService, manager:NLManagerProtocol){
         super.init(resource: resource, service: service, manager: manager)
     }
 

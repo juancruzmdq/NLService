@@ -25,8 +25,8 @@ pod "NLService"
 
 The simplest example
 
-let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, manager:NLAlamofireManager())
-let resource = RemoteResource<NSDictionary>("/repos/juancruzmdq/NLService")
+let service = NLRemoteService(baseURL: NSURL(string: "https://api.github.com")!, manager:NLAlamofireManager())
+let resource = NLRemoteResource<NSDictionary>("/repos/juancruzmdq/NLService")
 service.request(resource).load { (dict) in
     switch dict {
     case .Success(let dict):
@@ -43,10 +43,10 @@ service.request(resource).load { (dict) in
 ```ruby
 
 // Build Main Service
-let service = RemoteService(baseURL: NSURL(string: "https://api.github.com")!, manager: NLAlamofireManager(headers: ["Header-Global":"value global"])) // optional global headers
+let service = NLRemoteService(baseURL: NSURL(string: "https://api.github.com")!, manager: NLAlamofireManager(headers: ["Header-Global":"value global"])) // optional global headers
 
 // Build resource endpoint with parser
-let repoInfo = RemoteResource<String>("/repos/juancruzmdq/NLService")
+let repoInfo = NLRemoteResource<String>("/repos/juancruzmdq/NLService")
 repoInfo.headers = ["Header-Repo":"value for repo"]
 repoInfo.parser =  = {( result )->ParseResult<String> in
     guard let info = result as? NSDictionary else{
